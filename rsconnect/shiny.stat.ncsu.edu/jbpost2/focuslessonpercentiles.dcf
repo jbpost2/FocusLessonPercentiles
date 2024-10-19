@@ -1,0 +1,12 @@
+name: focuslessonpercentiles
+title: FocusLessonPercentiles
+username: jbpost2
+account: jbpost2
+server: shiny.stat.ncsu.edu
+hostUrl: https://shiny.stat.ncsu.edu/__api__
+appId: 68
+bundleId: 149
+url: https://shiny.stat.ncsu.edu/content/01a2a9d1-cc6e-460a-a68e-075f227998b4/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -163,12 +163,12 @@ ui <- dashboardPage(
                             fluidRow(
                               box(
                                   title = uiOutput("computation_value_1st"),
-                                  conditionalPanel("input.adornment_comp_1st == 'Percentile'",
-                                                   uiOutput("percentile_calc_comp_1st")
-                                  ),
-                                  conditionalPanel("input.adornment_comp_1st == 'Probability'",
-                                                   uiOutput("probability_calc_comp_1st")
-                                  ),
+                                  # conditionalPanel("input.adornment_comp_1st == 'Percentile'",
+                                  #                  uiOutput("percentile_calc_comp_1st")
+                                  # ),
+                                  # conditionalPanel("input.adornment_comp_1st == 'Probability'",
+                                  #                  uiOutput("probability_calc_comp_1st")
+                                  # ),
                                   collapsible = TRUE,
                                   collapsed = TRUE,
                                   width = 12
@@ -189,12 +189,12 @@ ui <- dashboardPage(
                             fluidRow(
                               box(
                                 title = uiOutput("computation_value_2nd"),
-                                conditionalPanel("input.adornment_comp_2nd == 'Percentile'",
-                                                 uiOutput("percentile_calc_comp_2nd")
-                                ),
-                                conditionalPanel("input.adornment_comp_2nd == 'Probability'",
-                                                 uiOutput("probability_calc_comp_2nd")
-                                ),
+                                # conditionalPanel("input.adornment_comp_2nd == 'Percentile'",
+                                #                  uiOutput("percentile_calc_comp_2nd")
+                                # ),
+                                # conditionalPanel("input.adornment_comp_2nd == 'Probability'",
+                                #                  uiOutput("probability_calc_comp_2nd")
+                                # ),
                                 collapsible = TRUE,
                                 collapsed = TRUE,
                                 width = 12
@@ -753,42 +753,42 @@ server <- function(session, input, output) {
            ylim = c(0, largest+0.1*largest),
            main = paste0("Rent Distribution for ", input$state1, "\nMean = ", round(mean1, 2), " and S.D. = ", round(sd1, 2))
       )
-      lines(x,
-            dnorm(x, mean = mean1, sd = sd1),
-            type = "l"
-      )
-      axis(1, at = mean1+(-4:4)*sd1, labels = -4:4, line = 3)
-      mtext("Rent and Corresponding Standard Normal Values", side =1, line = 2)
-      
-      mean <- mean1
-      sd <- sd1
-      if(input$adornment_comp_1st == "Percentile" & iv_percentile_2nd_tab_1st$is_valid()){
-        if(!(input$percentile <= 0 | input$percentile >= 100)){
-        per <- qnorm(input$percentile_comp_1st/100, mean = mean, sd = sd)
-        segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-        xseq <- seq(lower, per, length = 1000)
-        polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        }
-      } else if(input$adornment_comp_1st == "Probability"){
-        if ((input$prob_type_comp_1st == "Less Than") & (iv_prob_less_2nd_tab_1st$is_valid())){
-          per <- input$less_than_comp_1st
-          segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(lower, per, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        } else if ((input$prob_type_comp_1st == "Between") & (iv_prob_between_2nd_tab_1st$is_valid())){
-          per1 <- input$between1_comp_1st
-          per2 <- input$between2_comp_1st
-          segments(x0 = per1, x1 = per1, y0 = 0, y1 = dnorm(per1, mean = mean, sd = sd), lwd = 2)
-          segments(x0 = per2, x1 = per2, y0 = 0, y1 = dnorm(per2, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(per1, per2, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        } else if ((input$prob_type_comp_1st == "Greater Than") & (iv_prob_greater_2nd_tab_1st$is_valid())){
-          per <- input$greater_than_comp_1st
-          segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(per, upper, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        }
-      }
+      # lines(x,
+      #       dnorm(x, mean = mean1, sd = sd1),
+      #       type = "l"
+      # )
+      # axis(1, at = mean1+(-4:4)*sd1, labels = -4:4, line = 3)
+       mtext("Median Rent Values", side =1, line = 2)
+      # 
+      # mean <- mean1
+      # sd <- sd1
+      # if(input$adornment_comp_1st == "Percentile" & iv_percentile_2nd_tab_1st$is_valid()){
+      #   if(!(input$percentile <= 0 | input$percentile >= 100)){
+      #   per <- qnorm(input$percentile_comp_1st/100, mean = mean, sd = sd)
+      #   segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #   xseq <- seq(lower, per, length = 1000)
+      #   polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   }
+      # } else if(input$adornment_comp_1st == "Probability"){
+      #   if ((input$prob_type_comp_1st == "Less Than") & (iv_prob_less_2nd_tab_1st$is_valid())){
+      #     per <- input$less_than_comp_1st
+      #     segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(lower, per, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   } else if ((input$prob_type_comp_1st == "Between") & (iv_prob_between_2nd_tab_1st$is_valid())){
+      #     per1 <- input$between1_comp_1st
+      #     per2 <- input$between2_comp_1st
+      #     segments(x0 = per1, x1 = per1, y0 = 0, y1 = dnorm(per1, mean = mean, sd = sd), lwd = 2)
+      #     segments(x0 = per2, x1 = per2, y0 = 0, y1 = dnorm(per2, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(per1, per2, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   } else if ((input$prob_type_comp_1st == "Greater Than") & (iv_prob_greater_2nd_tab_1st$is_valid())){
+      #     per <- input$greater_than_comp_1st
+      #     segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(per, upper, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   }
+      # }
     })
     
     #create plot for 2nd school, 2nd tab
@@ -823,42 +823,42 @@ server <- function(session, input, output) {
            ylim = c(0, largest+0.1*largest),
            main = paste0("Rent Distribution for ", input$state2, "\nMean = ", round(mean2, 2), " and S.D. = ", round(sd2, 2))
       )
-      lines(x,
-            dnorm(x, mean = mean2, sd = sd2),
-            type = "l"
-      )
-      axis(1, at = mean2+(-4:4)*sd2, labels = -4:4, line = 3)
-      mtext("Rent and Corresponding Standard Normal Values", side =1, line = 2)
-      
-      mean <- mean2
-      sd <- sd2
-      if(input$adornment_comp_2nd == "Percentile" & iv_percentile_2nd_tab_2nd$is_valid()){
-        if(!(input$percentile <= 0 | input$percentile >= 100)){
-        per <- qnorm(input$percentile_comp_2nd/100, mean = mean, sd = sd)
-        segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-        xseq <- seq(lower, per, length = 1000)
-        polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        }
-      } else if(input$adornment_comp_2nd == "Probability"){
-        if (input$prob_type_comp_2nd == "Less Than" & iv_prob_less_2nd_tab_2nd$is_valid()){
-          per <- input$less_than_comp_2nd
-          segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(lower, per, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        } else if (input$prob_type_comp_2nd == "Between" & iv_prob_between_2nd_tab_2nd$is_valid()){
-          per1 <- input$between1_comp_2nd
-          per2 <- input$between2_comp_2nd
-          segments(x0 = per1, x1 = per1, y0 = 0, y1 = dnorm(per1, mean = mean, sd = sd), lwd = 2)
-          segments(x0 = per2, x1 = per2, y0 = 0, y1 = dnorm(per2, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(per1, per2, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        } else if (input$prob_type_comp_2nd == "Greater Than" & iv_prob_greater_2nd_tab_2nd$is_valid()){
-          per <- input$greater_than_comp_2nd
-          segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
-          xseq <- seq(per, upper, length = 1000)
-          polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
-        }
-      }
+      # lines(x,
+      #       dnorm(x, mean = mean2, sd = sd2),
+      #       type = "l"
+      # )
+      # axis(1, at = mean2+(-4:4)*sd2, labels = -4:4, line = 3)
+      mtext("Median Rent Values", side =1, line = 2)
+      # 
+      # mean <- mean2
+      # sd <- sd2
+      # if(input$adornment_comp_2nd == "Percentile" & iv_percentile_2nd_tab_2nd$is_valid()){
+      #   if(!(input$percentile <= 0 | input$percentile >= 100)){
+      #   per <- qnorm(input$percentile_comp_2nd/100, mean = mean, sd = sd)
+      #   segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #   xseq <- seq(lower, per, length = 1000)
+      #   polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   }
+      # } else if(input$adornment_comp_2nd == "Probability"){
+      #   if (input$prob_type_comp_2nd == "Less Than" & iv_prob_less_2nd_tab_2nd$is_valid()){
+      #     per <- input$less_than_comp_2nd
+      #     segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(lower, per, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   } else if (input$prob_type_comp_2nd == "Between" & iv_prob_between_2nd_tab_2nd$is_valid()){
+      #     per1 <- input$between1_comp_2nd
+      #     per2 <- input$between2_comp_2nd
+      #     segments(x0 = per1, x1 = per1, y0 = 0, y1 = dnorm(per1, mean = mean, sd = sd), lwd = 2)
+      #     segments(x0 = per2, x1 = per2, y0 = 0, y1 = dnorm(per2, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(per1, per2, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   } else if (input$prob_type_comp_2nd == "Greater Than" & iv_prob_greater_2nd_tab_2nd$is_valid()){
+      #     per <- input$greater_than_comp_2nd
+      #     segments(x0 = per, x1 = per, y0 = 0, y1 = dnorm(per, mean = mean, sd = sd), lwd = 2)
+      #     xseq <- seq(per, upper, length = 1000)
+      #     polygon(x = c(xseq, rev(xseq)), y = c(dnorm(xseq, mean = mean, sd = sd), rep(0, length(xseq))), col = rgb(red = 0.34, blue = 0.139, green = 0.34, alpha = 0.5))
+      #   }
+      # }
     })
     
     
@@ -1266,21 +1266,25 @@ server <- function(session, input, output) {
       if(input$adornment_comp_1st == "Percentile"){
         req(iv_percentile_2nd_tab_1st$is_valid())
         #percentile
-        paste0(scales::label_ordinal()(as.integer(input$percentile_comp_1st)), " percentile = ", round(qnorm(input$percentile_comp_1st/100)*sd + mean, 2))
+        paste0(
+          scales::label_ordinal()(as.integer(input$percentile_comp_1st)),
+          " percentile from the data is ",
+          round(quantile(state1_data$estimate, input$percentile_comp_1st/100, na.rm = TRUE), 2)
+        )
       } else if (input$adornment_comp_1st == "Probability"){
         #prob
         if (input$prob_type_comp_1st == "Less Than"){
           req(iv_prob_less_2nd_tab_1st$is_valid())
           #less than
-          paste0("Probability = ", round(pnorm(round((input$less_than_comp_1st - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state1_data$estimate < input$less_than_comp_1st), na.rm = TRUE), 4))
         } else if (input$prob_type_comp_1st == "Between"){
           req(iv_prob_between_2nd_tab_1st$is_valid())
           #between
-          paste0("Probability = ", round(pnorm(round((input$between2_comp_1st - mean)/sd, 2))- pnorm(round((input$between1_comp_1st - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state1_data$estimate > input$between1_comp_1st) & (state1_data$estimate < input$between2_comp_1st), na.rm = TRUE), 4))
         } else if(input$prob_type_comp_1st == "Greater Than"){
           req(iv_prob_greater_2nd_tab_1st$is_valid())
           #greater than
-          paste0("Probability = ", round(1- pnorm(round((input$greater_than_comp_1st - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state1_data$estimate > input$greater_than_comp_1st), na.rm = TRUE), 4))
         }
       } else {
         "No computation selected."
@@ -1291,30 +1295,33 @@ server <- function(session, input, output) {
     output$computation_value_2nd <- renderUI({
       state2 <- input$state2
       #separate data
-      state2_data <- filtered_data_2nd() %>%
+      state1_data <- filtered_data_2nd() %>%
         filter(state == state2)
-      
-      mean <- mean(state2_data$estimate, na.rm = TRUE)
-      sd <- sd(state2_data$estimate, na.rm = TRUE)
+      state2_data <- state1_data
+#      mean <- mean(state2_data$estimate, na.rm = TRUE)
+#      sd <- sd(state2_data$estimate, na.rm = TRUE)
       
       if(input$adornment_comp_2nd == "Percentile"){
         req(iv_percentile_2nd_tab_2nd$is_valid())
         #percentile
-        paste0(scales::label_ordinal()(as.integer(input$percentile_comp_2nd)), " percentile = ", round(qnorm(input$percentile_comp_2nd/100)*sd + mean, 2))
+        paste0( scales::label_ordinal()(as.integer(input$percentile_comp_2nd)),
+                " percentile from the data: ",
+               round(quantile(state1_data$estimate, input$percentile_comp_2nd/100, na.rm = TRUE), 2)
+        )
       } else if (input$adornment_comp_2nd == "Probability"){
         #prob
         if (input$prob_type_comp_2nd == "Less Than"){
           req(iv_prob_less_2nd_tab_2nd$is_valid())
           #less than
-          paste0("Probability = ", round(pnorm(round((input$less_than_comp_2nd - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state2_data$estimate < input$less_than_comp_2nd), na.rm = TRUE), 4))
         } else if (input$prob_type_comp_2nd == "Between"){
           req(iv_prob_between_2nd_tab_2nd$is_valid())
           #between
-          paste0("Probability = ", round(pnorm(round((input$between2_comp_2nd - mean)/sd, 2))- pnorm(round((input$between1_comp_2nd - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state2_data$estimate > input$between1_comp_2nd) & (state2_data$estimate < input$between2_comp_2nd), na.rm = TRUE), 4))
         } else if(input$prob_type_comp_2nd == "Greater Than"){
           req(iv_prob_greater_2nd_tab_2nd$is_valid())
           #greater than
-          paste0("Probability = ", round(1- pnorm(round((input$greater_than_comp_2nd - mean)/sd, 2)), 4))
+          paste0("Probability = ", round(mean((state2_data$estimate > input$greater_than_comp_2nd), na.rm = TRUE), 4))
         }
       } else {
         "No computation selected."
